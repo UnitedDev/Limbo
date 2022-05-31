@@ -1,0 +1,9 @@
+name: Limbo
+version: '${project.version}'
+main: fr.kohei.limbo.Limbo
+prefix: Limbo
+load: STARTUP
+authors: [ AndyReckt ]
+description: Limbo Plugin
+depend:
+  - BukkitAPI
