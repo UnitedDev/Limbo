@@ -1,7 +1,6 @@
 package fr.kohei.limbo.queue;
 
 import fr.kohei.BukkitAPI;
-import fr.kohei.common.api.CommonAPI;
 import fr.kohei.limbo.Limbo;
 import fr.kohei.limbo.utils.BungeeUtil;
 import fr.kohei.limbo.utils.Title;
@@ -9,17 +8,17 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
-import java.util.concurrent.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class QueueThread {
-
     private final Limbo plugin;
-    private final ScheduledExecutorService executor;
 
     public QueueThread(Limbo plugin) {
 
         this.plugin = plugin;
-        this.executor = Executors.newScheduledThreadPool(1);
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
 
         this.loadMessages();
         executor.scheduleAtFixedRate(this.run(), 1000, 250, TimeUnit.MILLISECONDS);
@@ -50,7 +49,6 @@ public class QueueThread {
 
         };
     }
-
 
     public void sendToLobby(UUID id) {
         if (BukkitAPI.getServerCache().findBestLobby() == null) {

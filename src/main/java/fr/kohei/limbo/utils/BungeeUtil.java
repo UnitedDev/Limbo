@@ -3,6 +3,7 @@ package fr.kohei.limbo.utils;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import fr.kohei.limbo.Limbo;
+import fr.kohei.utils.ChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -45,7 +46,7 @@ public final class BungeeUtil {
                 out.writeUTF(server);
 
                 player.sendPluginMessage(Limbo.getInstance(), "BungeeCord", out.toByteArray());
-                player.sendMessage(CC.SECONDARY + "You're now being sent to " + CC.PRIMARY + server + CC.SECONDARY + '.');
+                player.sendMessage(ChatUtil.prefix("&fRedirection vers le serveur &c" + server));
             } catch (Exception e) {
                 e.printStackTrace();
             }
