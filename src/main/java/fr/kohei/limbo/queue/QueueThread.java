@@ -51,14 +51,14 @@ public class QueueThread {
     }
 
     public void sendToLobby(UUID id) {
-        if (BukkitAPI.getServerCache().findBestLobby() == null) {
+        if (BukkitAPI.getCommonAPI().getServerCache().findBestLobby() == null) {
             return;
         }
 
         Player player = Bukkit.getPlayer(id);
         if (player == null) return;
 
-        String serverName = BukkitAPI.getFactory(BukkitAPI.getServerCache().findBestLobbyFor(id).getPort()).getName();
+        String serverName = BukkitAPI.getFactory(BukkitAPI.getCommonAPI().getServerCache().findBestLobbyFor(id).getPort()).getName();
         BungeeUtil.sendToServer(player, serverName);
     }
 }
