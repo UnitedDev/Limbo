@@ -15,14 +15,11 @@ public final class Limbo extends JavaPlugin {
 
     private Queue queue;
     private QueueThread queueThread;
-    private CommonAPI api;
-
 
 
     @Override
     public void onEnable() {
         Instance = this;
-        this.api = BukkitAPI.getCommonAPI();
 
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         this.getServer().getPluginManager().registerEvents(new Listeners(), this);

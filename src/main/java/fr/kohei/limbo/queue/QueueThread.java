@@ -9,19 +9,20 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
+import java.util.concurrent.*;
 
-public class QueueThread extends Thread {
+public class QueueThread {
 
-    private Limbo plugin;
+    private final Limbo plugin;
+    private final ScheduledExecutorService executor;
 
     public QueueThread(Limbo plugin) {
-        super("Limbo - Queue Thread");
 
         this.plugin = plugin;
-        this.setDaemon(false);
+        this.executor = Executors.newScheduledThreadPool(1);
 
         this.loadMessages();
-        Bukkit.getScheduler().runTaskLater(plugin, this::start, 20);
+        executor.scheduleAtFixedRate(this.run(), 1000, 250, TimeUnit.MILLISECONDS);
     }
 
     public void loadMessages() {
@@ -30,39 +31,36 @@ public class QueueThread extends Thread {
             Bukkit.getOnlinePlayers().forEach(player -> {
                 UUID id = player.getUniqueId();
                 Queue queue = Limbo.getInstance().getQueue();
-                Title.sendActionBar(player, "&6Position: &c" + queue.getPosition(id) + "&7/&f" + queue.getQueue().size());
+                Title.sendActionBar(player, "&cPosition &8» &f" + queue.getPosition(id) + "&8/&7" + queue.getQueue().size());
             });
-        },  20, 20);
+        },  20, 5);
 
     }
 
-    @Override
-    public void run() {
-        while (true) {
-
-            QueuePlayer player = Limbo.getInstance().getQueue().getQueue().peek();
-
+    public Runnable run() {
+        return () -> {
             try {
+                QueuePlayer player = Limbo.getInstance().getQueue().getQueue().peek();
                 if (Bukkit.getPlayer(player.getPlayer()) != null) {
                     sendToLobby(player.getPlayer());
                 }
-                sleep(250);
-            } catch (InterruptedException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
+
+        };
     }
 
 
     public void sendToLobby(UUID id) {
-        if (BukkitAPI.getServerCache().findBestLobby() == null) return;
+        if (BukkitAPI.getServerCache().findBestLobby() == null) {
+            return;
+        }
 
         Player player = Bukkit.getPlayer(id);
         if (player == null) return;
 
         String serverName = BukkitAPI.getFactory(BukkitAPI.getServerCache().findBestLobbyFor(id).getPort()).getName();
-
         BungeeUtil.sendToServer(player, serverName);
-
     }
 }

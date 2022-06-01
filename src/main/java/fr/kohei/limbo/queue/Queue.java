@@ -9,8 +9,8 @@ import java.util.UUID;
 @Getter
 public class Queue {
 
-    private PriorityQueue<QueuePlayer> queue;
-    private Limbo plugin;
+    private final PriorityQueue<QueuePlayer> queue;
+    private final Limbo plugin;
 
     public Queue(Limbo plugin) {
         this.plugin = plugin;
@@ -23,7 +23,7 @@ public class Queue {
     }
 
     public int getPosition(UUID uuid) {
-        PriorityQueue<QueuePlayer> q = this.queue;
+        PriorityQueue<QueuePlayer> q = new PriorityQueue<>(this.queue);
 
         int position = 0;
 
