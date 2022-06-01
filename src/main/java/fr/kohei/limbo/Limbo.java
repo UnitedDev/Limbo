@@ -1,12 +1,11 @@
 package fr.kohei.limbo;
 
-import fr.kohei.BukkitAPI;
-import fr.kohei.common.api.CommonAPI;
 import fr.kohei.limbo.queue.Queue;
 import fr.kohei.limbo.queue.QueueThread;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+
 @Getter
 public final class Limbo extends JavaPlugin {
 

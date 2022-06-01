@@ -40,13 +40,14 @@ public class QueueThread {
         return () -> {
             try {
                 QueuePlayer player = Limbo.getInstance().getQueue().getQueue().peek();
-                if (Bukkit.getPlayer(player.getPlayer()) != null) {
-                    sendToLobby(player.getPlayer());
-                }
+                Bukkit.getScheduler().runTask(Limbo.getInstance(), () -> {
+                    if (player != null && Bukkit.getPlayer(player.getPlayer()) != null) {
+                        sendToLobby(player.getPlayer());
+                    }
+                });
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         };
     }
 
