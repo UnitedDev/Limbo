@@ -1,8 +1,9 @@
-package fr.kohei.limbo;
+package fr.kohei.limbo.listeners;
 
 import fr.kohei.BukkitAPI;
 import fr.kohei.common.api.CommonAPI;
 import fr.kohei.common.cache.ProfileData;
+import fr.kohei.limbo.Limbo;
 import fr.kohei.limbo.queue.QueuePlayer;
 import fr.kohei.limbo.utils.CC;
 import org.bukkit.Bukkit;
