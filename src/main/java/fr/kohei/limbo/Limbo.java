@@ -1,5 +1,6 @@
 package fr.kohei.limbo;
 
+import fr.kohei.limbo.listeners.Listeners;
 import fr.kohei.limbo.queue.Queue;
 import fr.kohei.limbo.queue.QueueThread;
 import lombok.Getter;
